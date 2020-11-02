@@ -1,0 +1,7 @@
+provider "openstack" {
+  tenant   = ""
+  username = "admin"
+  password = "password"
+  auth_url = "http://keystone.openstack.svc.cluster.local:80/v3"
+  region   = "default"
+}
