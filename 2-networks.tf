@@ -15,6 +15,15 @@ resource "openstack_networking_subnet_v2" "subnet_1" {
 }
 
 #
+# https://registry.terraform.io/providers/terraform-provider-openstack/openstack/latest/docs/resources/compute_floatingip_v2
+#
+
+resource "openstack_compute_floatingip_v2" "floatip_1" {
+  pool = var.public_network
+}
+
+
+#
 # https://registry.terraform.io/providers/terraform-provider-openstack/openstack/latest/docs/resources/networking_secgroup_rule_v2
 #
 

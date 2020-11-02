@@ -1,7 +1,11 @@
 variable "image_name" {
-  default = ""
+  default = "centos"
 }
 
 variable "ssh-pubkey" {
-  default = ""
+  default = "ssh-rsa "
+}
+
+variable "public_network" {
+  default = "external-network"
 }
