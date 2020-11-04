@@ -31,6 +31,8 @@ resource "openstack_compute_instance_v2" "testvm" {
   network {
     name = openstack_networking_network_v2.network_1.name
   }
+
+  depends_on = [ openstack_networking_subnet_v2.subnet_1, ]
 }
 
 resource "openstack_compute_floatingip_associate_v2" "extip" {
