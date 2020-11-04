@@ -2,13 +2,14 @@
 #
 #
 
-data "openstack_compute_flavor_v2" "small" {
-  vcpus = 1
-  ram   = 512
+data "openstack_compute_flavor_v2" "flavor" {
+  name = "m1.small"
+#  vcpus = 2
+#  ram   = 2048
 }
 
-data "openstack_images_image_v2" "ubuntu" {
-  name        = "Ubuntu 16.04"
+data "openstack_images_image_v2" "image" {
+  name        = "centos8"
   most_recent = true
 
   properties = {
@@ -18,12 +19,22 @@ data "openstack_images_image_v2" "ubuntu" {
 
 resource "openstack_compute_instance_v2" "testvm" {
   name            = "test-vm"
-  image_name      = "cirros"
-  flavor_name     = "m1.tiny"
-  key_pair        = openstack_compute_keypair_v2.jacob-test-cloud-key.name
-  security_groups = ["default"]
+  image_name      = data.openstack_images_image_v2.image.name
+  flavor_name     = data.openstack_compute_flavor_v2.flavor.name
+  key_pair        = openstack_compute_keypair_v2.jacob-test-cloud-key_1.name
+  security_groups = ["default", openstack_networking_secgroup_v2.secgroup_1.name]
 
   network {
-    name = "selfservice"
+    name = data.openstack_networking_network_v2.network_2.name
   }
+
+  network {
+    name = openstack_networking_network_v2.network_1.name
+  }
+}
+
+resource "openstack_compute_floatingip_associate_v2" "extip" {
+  floating_ip = openstack_networking_floatingip_v2.fip_1.address
+  instance_id = openstack_compute_instance_v2.testvm.id
+  fixed_ip    = openstack_compute_instance_v2.testvm.network.0.fixed_ip_v4
 }

@@ -9,3 +9,7 @@ variable "ssh-pubkey" {
 variable "public_network" {
   default = "external-network"
 }
+
+variable "nat_network" {
+  default = "internal-network"
+}
