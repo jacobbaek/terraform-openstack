@@ -6,13 +6,57 @@ pipeline {
         }
     }
 
+    parameters {
+        string(name: 'PUBKEY',
+            defaultValue: 'ssh-key xxxxx',
+            description: 'ssh public key (ex. ~/.ssh/id_rsa.pub)')
+        string(name: 'IMAGENAME',
+            defaultValue: 'centos7',
+            description: 'openstack image name that is already uploaded' )
+        string(name: 'EXTNET-NAME',
+            defaultValue: 'external_network',
+            description: 'the provider network' )
+        string(name: 'NATNET-NAME',
+            defaultValue: 'internal_network',
+            description: 'the network that can access internet via provider network' )
+        booleanParam(name: 'CLEANUP',
+            defaultValue: false,
+            description: 'delete OpenStack instances after job is finished')
+    }
+
     stages {
+        stage('make variables file') {
+            steps {
+                sh 'sed -i "s/ssh-key FIXME/${params.PUBKEY}/g" 9-variables.tf'
+                sh 'sed -i "s/centos FIXME/${params.IMAGENAME}/g" 9-variables.tf'
+                sh 'sed -i "s/external-network FIXME/${params.EXTNET-NAME}/g" 9-variables.tf'
+                sh 'sed -i "s/internal-network FIXME/${params.NATNET-NAME}/g" 9-variables.tf'
+            }
+        }
+
         stage('make a ready to use terraform') {
             steps {
                 sh 'terraform version'
                 sh 'mc cp hanu-minio/openstack/clouds.yaml .'
                 sh 'terraform init'
                 echo 'done'
+            }
+        }
+
+        stage('make a env') {
+            steps {
+                sh 'terraform plan'
+                sh 'terraform apply --auto-approve'
+            }
+        }
+    }
+
+    post {
+        always {
+            script {
+                if ( param.CLEANUP == true ) {
+                    sh 'terraform destroy --auto-approve'
+                }
             }
         }
     }
