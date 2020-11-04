@@ -27,10 +27,10 @@ pipeline {
     stages {
         stage('make variables file') {
             steps {
-                sh 'sed -i "s/ssh-key FIXME/${params.PUBKEY}/g" 9-variables.tf'
-                sh 'sed -i "s/centos FIXME/${params.IMAGENAME}/g" 9-variables.tf'
-                sh 'sed -i "s/external-network FIXME/${params.EXTNET-NAME}/g" 9-variables.tf'
-                sh 'sed -i "s/internal-network FIXME/${params.NATNET-NAME}/g" 9-variables.tf'
+                sh 'sed -i "s/ssh-key\ FIXME/${params.PUBKEY}/g" 9-variables.tf'
+                sh 'sed -i "s/centos\ FIXME/${params.IMAGENAME}/g" 9-variables.tf'
+                sh 'sed -i "s/external-network\ FIXME/${params.EXTNET-NAME}/g" 9-variables.tf'
+                sh 'sed -i "s/internal-network\ FIXME/${params.NATNET-NAME}/g" 9-variables.tf'
             }
         }
 
