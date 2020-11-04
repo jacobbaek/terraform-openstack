@@ -60,8 +60,10 @@ pipeline {
     post {
         always {
             script {
-                if ( param.CLEANUP == true ) {
+                if ( params.CLEANUP == true ) {
                     sh 'terraform destroy --auto-approve'
+                } else {
+                    echo "The environment that made by terraform remained."
                 }
             }
         }
