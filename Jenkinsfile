@@ -27,26 +27,32 @@ pipeline {
     stages {
         stage('make variables file') {
             steps {
-                sh "echo ${params.PUBKEY} > pubkey"
-                sh "sed -i 's/centos\\ FIXME/${params.IMAGENAME}/' 9-variables.tf"
-                sh "sed -i 's/external-network\\ FIXME/${params.EXTNET-NAME}/' 9-variables.tf"
-                sh "sed -i 's/internal-network\\ FIXME/${params.NATNET-NAME}/' 9-variables.tf"
+                script {
+                    sh "echo ${params.PUBKEY} > pubkey"
+                    sh "sed -i 's/centos\\ FIXME/${params.IMAGENAME}/' 9-variables.tf"
+                    sh "sed -i 's/external-network\\ FIXME/${params.EXTNET-NAME}/' 9-variables.tf"
+                    sh "sed -i 's/internal-network\\ FIXME/${params.NATNET-NAME}/' 9-variables.tf"
+                }
             }
         }
 
         stage('make a ready to use terraform') {
             steps {
-                sh 'terraform version'
-                sh 'mc cp hanu-minio/openstack/clouds.yaml .'
-                sh 'terraform init'
-                echo 'done'
+                script {
+                    sh 'terraform version'
+                    sh 'mc cp hanu-minio/openstack/clouds.yaml .'
+                    sh 'terraform init'
+                    echo 'done'
+                }
             }
         }
 
         stage('make a env') {
             steps {
-                sh 'terraform plan'
-                sh 'terraform apply --auto-approve'
+                script {
+                    sh 'terraform plan'
+                    sh 'terraform apply --auto-approve'
+                }
             }
         }
     }
