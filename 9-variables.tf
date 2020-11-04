@@ -1,17 +1,17 @@
 variable "image_name" {
-  default = "centos_FIXME"
+  default = "centos FIXME"
 }
 
 variable "ssh-pubkey" {
-  default = "ssh-rsa_FIXME "
+  default = "ssh-rsa FIXME"
 }
 
 # the below variable have to defined that is provider network.
 variable "public_network" {
-  default = "external-network_FIXME"
+  default = "external-network FIXME"
 }
 
 # the below variable have to defined that can connect provider network.
 variable "nat_network" {
-  default = "internal-network_FIXME"
+  default = "internal-network FIXME"
 }
