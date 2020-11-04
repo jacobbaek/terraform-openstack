@@ -28,9 +28,9 @@ pipeline {
         stage('make variables file') {
             steps {
                 sh "echo ${params.PUBKEY} > pubkey"
-                sh "sed -i 's/centos\\ FIXME/${params.IMAGENAME}/g' 9-variables.tf"
-                sh "sed -i 's/external-network\\ FIXME/${params.EXTNET-NAME}/g' 9-variables.tf"
-                sh "sed -i 's/internal-network\\ FIXME/${params.NATNET-NAME}/g' 9-variables.tf"
+                sh "sed -i 's/centos\\ FIXME/${params.IMAGENAME}/' 9-variables.tf"
+                sh "sed -i 's/external-network\\ FIXME/${params.EXTNET-NAME}/' 9-variables.tf"
+                sh "sed -i 's/internal-network\\ FIXME/${params.NATNET-NAME}/' 9-variables.tf"
             }
         }
 
