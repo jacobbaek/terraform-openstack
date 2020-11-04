@@ -13,10 +13,10 @@ pipeline {
         string(name: 'IMAGENAME',
             defaultValue: 'centos7',
             description: 'openstack image name that is already uploaded' )
-        string(name: 'EXTNET-NAME',
+        string(name: 'EXTNETNAME',
             defaultValue: 'external_network',
             description: 'the provider network' )
-        string(name: 'NATNET-NAME',
+        string(name: 'NATNETNAME',
             defaultValue: 'internal_network',
             description: 'the network that can access internet via provider network' )
         booleanParam(name: 'CLEANUP',
@@ -30,8 +30,8 @@ pipeline {
                 script {
                     sh "echo ${params.PUBKEY} > pubkey"
                     sh "sed -i 's/centos\\ FIXME/${params.IMAGENAME}/' 9-variables.tf"
-                    sh "sed -i 's/external-network\\ FIXME/${params.EXTNET-NAME}/' 9-variables.tf"
-                    sh "sed -i 's/internal-network\\ FIXME/${params.NATNET-NAME}/' 9-variables.tf"
+                    sh "sed -i 's/external-network\\ FIXME/${params.EXTNETNAME}/' 9-variables.tf"
+                    sh "sed -i 's/internal-network\\ FIXME/${params.NATNETNAME}/' 9-variables.tf"
                 }
             }
         }
