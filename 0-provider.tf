@@ -1,1 +1,1 @@
-provider "openstack" { cloud = "hanu-prod" }
+provider "openstack" { cloud = "staging-credential" }
