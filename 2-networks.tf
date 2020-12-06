@@ -78,3 +78,19 @@ resource "openstack_networking_secgroup_rule_v2" "openstack-secgroup-rule" {
   security_group_id = openstack_networking_secgroup_v2.secgroup-openstack.id
 }
 
+
+# ===== Router =====
+#
+# 
+
+resource "openstack_networking_router_v2" "jacobbaek-router" {
+  name        = "jacobbaek-router"
+  description = "router for jacobbaek project"
+  external_network_id= var.external-network-uuid
+}
+
+resource "openstack_networking_router_interface_v2" "jacobbaek-router-int" {
+  router_id = openstack_networking_router_v2.jacobbaek-router.id
+  subnet_id = openstack_networking_subnet_v2.subnet_1.id
+}
+

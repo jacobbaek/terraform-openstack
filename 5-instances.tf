@@ -7,12 +7,16 @@ data "openstack_compute_flavor_v2" "flavor-middle" {
 }
 
 data "openstack_images_image_v2" "centos7-image" {
-  name        = "CentOS-7-x86_64-1901"
+  name        = var.image-name
   most_recent = true
 
   properties = {
     key = "value"
   }
+}
+
+data "template_file" "user-data" {
+  template = file("templates/cloud-init")
 }
 
 resource "openstack_compute_instance_v2" "testvm" {
@@ -22,6 +26,7 @@ resource "openstack_compute_instance_v2" "testvm" {
   key_pair        = openstack_compute_keypair_v2.jacobbaek-keypair.name
   #key_pair        = data.openstack_compute_keypair_v2.jacobbaek-keypair.name
   security_groups = ["default", openstack_networking_secgroup_v2.secgroup-openstack.name]
+  user_data       = data.template_file.user-data.rendered
 
 #  network {
 #    name = data.openstack_networking_network_v2.jacobbaek-network.name
