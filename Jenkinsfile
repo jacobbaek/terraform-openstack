@@ -1,14 +1,11 @@
 pipeline {
-    agent {
-        //node {
-        //   label 'openstack-slave'
-        //    customWorkspace "workspace/${env.JOB_NAME}/${env.BUILD_NUMBER}"
-        //}
-        docker {
-            label 'docker-local'
-            image 'hashicorp/terraform:latest'
-        }
-    }
+    //agent {
+    //    node {
+    //        label 'openstack-slave'
+    //        customWorkspace "workspace/${env.JOB_NAME}/${env.BUILD_NUMBER}"
+    //    }
+    //}
+    agent any
 
     parameters {
         string(name: 'PUBKEY',
