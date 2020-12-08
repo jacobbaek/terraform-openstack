@@ -41,6 +41,7 @@ pipeline {
                     //sh 'wget https://releases.hashicorp.com/terraform/0.14.0/terraform_0.14.0_linux_amd64.zip && unzip terraform_0.14.0_linux_amd64.zip -d /usr/local/bin'
                     sh 'terraform version'
                     //sh 'mc cp hanu-minio/openstack/clouds.yaml .'
+                    sh 'cp /root/clouds.yaml .'
                     sh 'terraform init'
                     echo 'done'
                 }
