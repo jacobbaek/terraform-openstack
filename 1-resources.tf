@@ -4,7 +4,8 @@
 
 # ===== creation keypair =====
 data "local_file" "local-pubkey" {
-    filename = "/home/jacob/.ssh/id_rsa.pub"
+    filename = "~/.ssh/id_rsa.pub"
+    #filename = "/root/.ssh/id_rsa.pub"
     #filename = "${path.module}/id_rsa.pub"
 }
 
