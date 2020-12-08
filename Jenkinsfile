@@ -30,9 +30,9 @@ pipeline {
             steps {
                 script {
                     sh "echo ${params.PUBKEY} > pubkey"
-                    sh "sed -i 's/centos\\ FIXME/${params.IMAGENAME}/' 9-variables.tf"
-                    sh "sed -i 's/external-network\\ FIXME/${params.EXTNETNAME}/' 9-variables.tf"
-                    sh "sed -i 's/internal-network\\ FIXME/${params.NATNETNAME}/' 9-variables.tf"
+                    sh "sed -i 's/centos\\ FIXME/${params.IMAGENAME}/' variables.tf"
+                    sh "sed -i 's/external-network\\ FIXME/${params.EXTNETNAME}/' variables.tf"
+                    sh "sed -i 's/internal-network\\ FIXME/${params.NATNETNAME}/' variables.tf"
                 }
             }
         }
@@ -40,6 +40,7 @@ pipeline {
         stage('make a ready to use terraform') {
             steps {
                 script {
+                    sh 'wget https://releases.hashicorp.com/terraform/0.14.0/terraform_0.14.0_linux_amd64.zip && unzip terraform_0.14.0_linux_amd64.zip -d /usr/local/bin'
                     sh 'terraform version'
                     //sh 'mc cp hanu-minio/openstack/clouds.yaml .'
                     sh 'terraform init'
