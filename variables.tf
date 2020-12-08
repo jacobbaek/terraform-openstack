@@ -48,3 +48,7 @@ variable "monitor-addr" {
 variable "external-network-uuid" {
   default = "external-network-uuid FIXME"
 }
+
+variable "pubkey" {
+  default = "pubkey FIXME"
+}

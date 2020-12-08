@@ -13,12 +13,9 @@ pipeline {
         string(name: 'IMAGENAME',
             defaultValue: 'centos7',
             description: 'openstack image name that is already uploaded' )
-        string(name: 'EXTNETNAME',
-            defaultValue: 'external_network',
+        string(name: 'EXTNETUUIDNAME',
+            defaultValue: 'external_network_uuid',
             description: 'the provider network' )
-        string(name: 'NATNETNAME',
-            defaultValue: 'internal_network',
-            description: 'the network that can access internet via provider network' )
         booleanParam(name: 'CLEANUP',
             defaultValue: false,
             description: 'delete OpenStack instances after job is finished')
@@ -30,7 +27,7 @@ pipeline {
                 script {
                     sh "echo ${params.PUBKEY} > pubkey"
                     sh "sed -i 's/image\\ FIXME/${params.IMAGENAME}/' variables.tf"
-                    sh "sed -i 's/external-network-uuid\\ FIXME/${params.EXTNETNAME}/' variables.tf"
+                    sh "sed -i 's/external-network-uuid\\ FIXME/${params.EXTNETUUIDNAME}/' variables.tf"
                 }
             }
         }

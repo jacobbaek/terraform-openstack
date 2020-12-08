@@ -4,9 +4,8 @@
 
 # ===== creation keypair =====
 data "local_file" "local-pubkey" {
-    filename = "~/.ssh/id_rsa.pub"
     #filename = "/root/.ssh/id_rsa.pub"
-    #filename = "${path.module}/id_rsa.pub"
+    filename = "${path.module}/pubkey"
 }
 
 resource "openstack_compute_keypair_v2" "keypairname" {
