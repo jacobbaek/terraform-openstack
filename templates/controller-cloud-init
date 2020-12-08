@@ -1,0 +1,8 @@
+#cloud-config
+
+password: root123
+chpasswd:
+  list: |
+    root:root123
+  expire: False
+ssh_pwauth: True

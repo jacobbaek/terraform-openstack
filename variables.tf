@@ -10,12 +10,20 @@ variable "ceph-names" {
 
 variable "controller-names" {
   type = list(string)
-  default = ["ctrl001", "ctrl002", "ctrl003"]
+  default = ["ctrl001"]
 }
 
+variable "compute-names" {
+  type = list(string)
+  default = ["com001"]
+}
 # 
 variable "image-name" {
-  default = "centos7 FIXME"
+  default = "xxxxxx FIXME"
+}
+
+variable "flavor-name" {
+  default = "m1.medium"
 }
 
 # networks
