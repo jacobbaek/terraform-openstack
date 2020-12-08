@@ -19,7 +19,7 @@ variable "compute-names" {
 }
 # 
 variable "image-name" {
-  default = "xxxxxx FIXME"
+  default = "image FIXME"
 }
 
 variable "flavor-name" {
@@ -46,5 +46,5 @@ variable "monitor-addr" {
 
 # should check the external's network uuid that will use at the vrouter.
 variable "external-network-uuid" {
-  default = "xxxx-xxxx-xxxx-xxxx FIXME"
+  default = "external-network-uuid FIXME"
 }

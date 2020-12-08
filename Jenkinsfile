@@ -1,11 +1,10 @@
 pipeline {
-    //agent {
-    //    node {
-    //        label 'openstack-slave'
-    //        customWorkspace "workspace/${env.JOB_NAME}/${env.BUILD_NUMBER}"
-    //    }
-    //}
-    agent any
+    agent {
+        node {
+            label 'slave-vm'
+            customWorkspace "workspace/${env.JOB_NAME}/${env.BUILD_NUMBER}"
+        }
+    }
 
     parameters {
         string(name: 'PUBKEY',
@@ -30,9 +29,8 @@ pipeline {
             steps {
                 script {
                     sh "echo ${params.PUBKEY} > pubkey"
-                    sh "sed -i 's/centos\\ FIXME/${params.IMAGENAME}/' variables.tf"
-                    sh "sed -i 's/external-network\\ FIXME/${params.EXTNETNAME}/' variables.tf"
-                    sh "sed -i 's/internal-network\\ FIXME/${params.NATNETNAME}/' variables.tf"
+                    sh "sed -i 's/image\\ FIXME/${params.IMAGENAME}/' variables.tf"
+                    sh "sed -i 's/external-network-uuid\\ FIXME/${params.EXTNETNAME}/' variables.tf"
                 }
             }
         }
